@@ -1,7 +1,8 @@
 package com.sqa.jh;
 
 import java.util.concurrent.*;
-
+import org.apache.log4j.*;
+>>>>>>> origin/auto-project
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.*;
 import org.openqa.selenium.firefox.*;
@@ -10,6 +11,7 @@ import org.testng.annotations.*;
 public class BasicTest {
 	private static String baseURL = "http://mtv.com";
 	private static WebDriver driver;
+	private static Logger log = Logger.getLogger(BasicTest.class);
 
 	/**
 	 * @return the baseURL
@@ -25,7 +27,14 @@ public class BasicTest {
 		return driver;
 	}
 
-	@BeforeClass()
+	/**
+	 * @return the log
+	 */
+	public static Logger getLog() {
+		return log;
+	}
+
+	@BeforeClass(enabled = false)
 	public static void setupChrome() {
 		System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
 		driver = new ChromeDriver();
@@ -33,7 +42,7 @@ public class BasicTest {
 		driver.get(baseURL);
 	}
 
-	@BeforeClass(enabled = false)
+	@BeforeClass(enabled = true)
 	public static void setupFirefox() {
 		driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -62,6 +71,7 @@ public class BasicTest {
 		getDriver().get(getBaseURL());
 
 	}
+
 
 	@SuppressWarnings("unused")
 	private String closeAlertAndGetItsText() {
@@ -98,5 +108,4 @@ public class BasicTest {
 			return false;
 		}
 	}
-
 }
